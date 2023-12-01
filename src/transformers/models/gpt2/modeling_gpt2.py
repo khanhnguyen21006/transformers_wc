@@ -890,7 +890,6 @@ class GPT2Model(GPT2PreTrainedModel):
                     encoder_attention_mask,
                 )
             else:
-                # import pudb; pu.db
                 outputs = block(
                     hidden_states,
                     layer_past=layer_past,
@@ -995,7 +994,7 @@ class GPT2LMHeadModel(GPT2PreTrainedModel):
             m_input = torch.cat([torch.ones((f_image.shape[0], f_image.shape[1]), dtype=torch.long, device=f_image.device).expand(input_ids.shape[0], -1),
                 torch.ones_like(input_ids)], dim=1) # (5, 64+seq)
         token_type_ids = kwargs.get("token_type_ids", None)
-        # only last  token for inputs_ids if past is defined in kwargs
+        # only last token for inputs_ids if past is defined in kwargs
         if past:
             input_ids = input_ids[:, -1].unsqueeze(-1)
             if token_type_ids is not None:

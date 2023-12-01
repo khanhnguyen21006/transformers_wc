@@ -1172,7 +1172,6 @@ class GenerationMixin:
             )
 
         # 4. Prepare `input_ids` which will be used for auto-regressive generation
-        # this fking little sht is the inputs to the decoder
         if self.config.is_encoder_decoder:
             input_ids = self._prepare_decoder_input_ids_for_generation(
                 batch_size,
@@ -1660,7 +1659,7 @@ class GenerationMixin:
             if synced_gpus and this_peer_finished:
                 cur_len = cur_len + 1
                 continue  # don't waste resources running the code we don't need
-            import pudb; pu.db
+
             next_token_logits = outputs.logits[:, -1, :]
 
             # Store scores, attentions and hidden_states when required
